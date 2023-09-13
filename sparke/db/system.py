@@ -57,6 +57,11 @@ class SysDB(Component):
         pass
 
     @abstractmethod
+    def create_tables(self):
+        """Create the tables for the system database"""
+        pass
+
+    @abstractmethod
     def delete_collection(self, id: UUID) -> None:
         """Delete a topic and all associated segments from the SysDB"""
         pass

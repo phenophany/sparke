@@ -30,6 +30,56 @@ class SqlSysDB(SqlDB, SysDB):
         super().__init__(system)
 
     @override
+    def create_tables(self):
+        with self.tx() as cur:
+            cur.execute(
+                """
+                CREATE TABLE IF NOT EXISTS segments (
+                    id TEXT PRIMARY KEY,
+                    type TEXT NOT NULL,
+                    scope TEXT NOT NULL,
+                    topic TEXT,
+                    collection TEXT REFERENCES collections(id) ON DELETE CASCADE
+                );
+                """
+            )
+            cur.execute(
+                """
+                CREATE TABLE IF NOT EXISTS segment_metadata (
+                    segment_id TEXT REFERENCES segments(id) ON DELETE CASCADE,
+                    key TEXT NOT NULL,
+                    str_value TEXT,
+                    int_value INTEGER,
+                    float_value REAL,
+                    PRIMARY KEY (segment_id, key)
+                );
+                """
+            )
+            cur.execute(
+                """
+                CREATE TABLE IF NOT EXISTS collections (
+                    id TEXT PRIMARY KEY,
+                    topic TEXT NOT NULL,
+                    name TEXT NOT NULL,
+                    dimension INTEGER
+                );
+                """
+            )
+            cur.execute(
+                """
+                CREATE TABLE IF NOT EXISTS collection_metadata (
+                    collection_id TEXT REFERENCES collections(id) ON DELETE CASCADE,
+                    key TEXT NOT NULL,
+                    str_value TEXT,
+                    int_value INTEGER,
+                    float_value REAL,
+                    PRIMARY KEY (collection_id, key)
+                );
+                """
+            )
+
+
+    @override
     def create_segment(self, segment: Segment) -> None:
         with self.tx() as cur:
             segments = Table("segments")

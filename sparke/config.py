@@ -52,12 +52,12 @@ See https://docs.trychroma.com/migration for more information or join our discor
 #
 # # TODO: Don't use concrete types here to avoid circular deps. Strings are fine for right here!
 _abstract_type_keys: Dict[str, str] = {
-    "chromadb.api.API": "chroma_api_impl",
-    "chromadb.telemetry.Telemetry": "chroma_telemetry_impl",
-    "chromadb.ingest.Producer": "chroma_producer_impl",
-    "chromadb.ingest.Consumer": "chroma_consumer_impl",
-    "chromadb.db.system.SysDB": "chroma_sysdb_impl",
-    "chromadb.segment.SegmentManager": "chroma_segment_manager_impl",
+    # "chromadb.api.API": "chroma_api_impl",
+    # "chromadb.telemetry.Telemetry": "chroma_telemetry_impl",
+    "sparke.ingest.Producer": "chroma_producer_impl",
+    "sparke.ingest.Consumer": "chroma_consumer_impl",
+    "sparke.db.system.SysDB": "chroma_sysdb_impl",
+    # "chromadb.segment.SegmentManager": "chroma_segment_manager_impl",
 }
 
 
@@ -67,29 +67,29 @@ class Settings(BaseSettings):  # type: ignore
     # Legacy config has to be kept around because pydantic will error on nonexisting keys
     chroma_db_impl: Optional[str] = None
 
-    chroma_api_impl: str = "chromadb.api.segment.SegmentAPI"  # Can be "chromadb.api.segment.SegmentAPI" or "chromadb.api.fastapi.FastAPI"
-    chroma_telemetry_impl: str = "chromadb.telemetry.posthog.Posthog"
+    # chroma_api_impl: str = "chromadb.api.segment.SegmentAPI"  # Can be "chromadb.api.segment.SegmentAPI" or "chromadb.api.fastapi.FastAPI"
+    # chroma_telemetry_impl: str = "chromadb.telemetry.posthog.Posthog"
 
     # New architecture components
-    chroma_sysdb_impl: str = "chromadb.db.impl.sqlite.SqliteDB"
-    chroma_producer_impl: str = "chromadb.db.impl.sqlite.SqliteDB"
-    chroma_consumer_impl: str = "chromadb.db.impl.sqlite.SqliteDB"
-    chroma_segment_manager_impl: str = (
-        "chromadb.segment.impl.manager.local.LocalSegmentManager"
-    )
+    chroma_sysdb_impl: str = "sparke.db.sqlite.sqlite.SqliteDB"
+    chroma_producer_impl: str = "sparke.db.sqlite.sqlite.SqliteDB"
+    chroma_consumer_impl: str = "sparke.db.sqlite.sqlite.SqliteDB"
+    # chroma_segment_manager_impl: str = (
+    #     "chromadb.segment.impl.manager.local.LocalSegmentManager"
+    # )
 
     tenant_id: str = "default"
     topic_namespace: str = "default"
 
-    is_persistent: bool = False
-    persist_directory: str = "./chroma"
+    is_persistent: bool = True
+    persist_directory: str = "./sparke"
 
-    chroma_server_host: Optional[str] = None
-    chroma_server_headers: Optional[Dict[str, str]] = None
-    chroma_server_http_port: Optional[str] = None
-    chroma_server_ssl_enabled: Optional[bool] = False
-    chroma_server_grpc_port: Optional[str] = None
-    chroma_server_cors_allow_origins: List[str] = []  # eg ["http://localhost:3000"]
+    sparke_server_headers: Optional[Dict[str, str]] = None
+    sparke_server_host: Optional[str] = None
+    sparke_server_http_port: Optional[str] = None
+    sparke_server_ssl_enabled: Optional[bool] = False
+    sparke_server_grpc_port: Optional[str] = None
+    sparke_server_cors_allow_origins: List[str] = []  # eg ["http://localhost:3000"]
 
     chroma_server_auth_provider: Optional[str] = None
 
