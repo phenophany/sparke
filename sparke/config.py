@@ -52,12 +52,12 @@ See https://docs.trychroma.com/migration for more information or join our discor
 #
 # # TODO: Don't use concrete types here to avoid circular deps. Strings are fine for right here!
 _abstract_type_keys: Dict[str, str] = {
-    # "chromadb.api.API": "chroma_api_impl",
+    "sparke.api.API": "chroma_api_impl",
     # "chromadb.telemetry.Telemetry": "chroma_telemetry_impl",
     "sparke.ingest.Producer": "chroma_producer_impl",
     "sparke.ingest.Consumer": "chroma_consumer_impl",
     "sparke.db.system.SysDB": "chroma_sysdb_impl",
-    # "chromadb.segment.SegmentManager": "chroma_segment_manager_impl",
+    "sparke.segment.SegmentManager": "chroma_segment_manager_impl",
 }
 
 
@@ -67,16 +67,16 @@ class Settings(BaseSettings):  # type: ignore
     # Legacy config has to be kept around because pydantic will error on nonexisting keys
     chroma_db_impl: Optional[str] = None
 
-    # chroma_api_impl: str = "chromadb.api.segment.SegmentAPI"  # Can be "chromadb.api.segment.SegmentAPI" or "chromadb.api.fastapi.FastAPI"
+    chroma_api_impl: str = "sparke.api.segment.SegmentAPI"  # Can be "chromadb.api.segment.SegmentAPI" or "chromadb.api.fastapi.FastAPI"
     # chroma_telemetry_impl: str = "chromadb.telemetry.posthog.Posthog"
 
     # New architecture components
     chroma_sysdb_impl: str = "sparke.db.sqlite.sqlite.SqliteDB"
     chroma_producer_impl: str = "sparke.db.sqlite.sqlite.SqliteDB"
     chroma_consumer_impl: str = "sparke.db.sqlite.sqlite.SqliteDB"
-    # chroma_segment_manager_impl: str = (
-    #     "chromadb.segment.impl.manager.local.LocalSegmentManager"
-    # )
+    chroma_segment_manager_impl: str = (
+        "sparke.segment.impl.manager.local.LocalSegmentManager"
+    )
 
     tenant_id: str = "default"
     topic_namespace: str = "default"

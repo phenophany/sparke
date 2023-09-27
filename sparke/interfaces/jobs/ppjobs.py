@@ -6,6 +6,7 @@ from sparke.config import System, Settings
 from sparke.db.system import SysDB
 from sparke.config import Component
 from sparke.ingest import Producer
+from sparke.tools.embedding_functions import OpenAIEmbeddingFunction
 
 
 class SparkePackageJob(Component):
@@ -29,6 +30,10 @@ class SparkePackageJob(Component):
     def createsparkepackage(self):
         """Creates a SparkePackageJob object."""
         # create a hidden folder in this directory, create a sqlite database in this directory
+        oe = OpenAIEmbeddingFunction(api_key='sk-xxx')
+
+
+
         pass
 
     def createtemplatefolder(self, path: str) -> dict:
@@ -63,16 +68,16 @@ class SparkePackageJob(Component):
         }
 
 
-settings = Settings(
-        # chroma_sysdb_impl="sparke.db.works.sqlite.SqliteDB",
-        # chroma_producer_impl="sparke.db.works.sqlite.SqliteDB",
-        # chroma_consumer_impl="sparke.db.works.sqlite.SqliteDB",
-        # chroma_segment_manager_impl="chromadb.segment.impl.manager.local.LocalSegmentManager",
-        allow_reset=True,
-        is_persistent=True,
-        persist_directory="d:\\test",
-    )
-
-system = System(settings)
-spp = SparkePackageJob(system)
-spp.createtemplatefolder("d:\\test")
+# settings = Settings(
+#         # chroma_sysdb_impl="sparke.db.works.sqlite.SqliteDB",
+#         # chroma_producer_impl="sparke.db.works.sqlite.SqliteDB",
+#         # chroma_consumer_impl="sparke.db.works.sqlite.SqliteDB",
+#         # chroma_segment_manager_impl="chromadb.segment.impl.manager.local.LocalSegmentManager",
+#         allow_reset=True,
+#         is_persistent=True,
+#         persist_directory="d:\\test",
+#     )
+#
+# system = System(settings)
+# spp = SparkePackageJob(system)
+# spp.createtemplatefolder("d:\\test")
