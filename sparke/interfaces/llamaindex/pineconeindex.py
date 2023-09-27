@@ -10,12 +10,14 @@ from llama_index.storage.storage_context import StorageContext
 from llama_index.embeddings import OpenAIEmbedding
 
 
+from dotenv import load_dotenv, find_dotenv
+_ = load_dotenv(find_dotenv()) # This loads the .env file in the root directory of the project
 
-api_key = "46923e13-1afb-477c-b931-addd226038b1"
-os.environ["OPENAI_API_KEY"] = "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"
+api_key = os.environ['PINECONE_API_KEY']
+
 # Get the API key from the environment variable
 import openai
-openai.api_key = "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"
+openai.api_key = os.environ['OPENAI_API_KEY']
 
 embed_model = OpenAIEmbedding()
 pinecone.init(api_key=api_key,environment="asia-southeast1-gcp-free")

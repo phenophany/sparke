@@ -15,9 +15,9 @@ import array
 def encode_vector(vector: Vector, encoding: ScalarEncoding) -> bytes:
     """Encode a vector into a byte array."""
 
-    if encoding == ScalarEncoding.FLOAT32:
+    if encoding.value == ScalarEncoding.FLOAT32.value:
         return array.array("f", vector).tobytes()
-    elif encoding == ScalarEncoding.INT32:
+    elif encoding.value == ScalarEncoding.INT32.value:
         return array.array("i", vector).tobytes()
     else:
         raise ValueError(f"Unsupported encoding: {encoding.value}")

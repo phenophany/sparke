@@ -34,9 +34,9 @@ class SegmentType(Enum):
 
 
 SEGMENT_TYPE_IMPLS = {
-    SegmentType.SQLITE: "chromadb.segment.impl.metadata.sqlite.SqliteMetadataSegment",
-    SegmentType.HNSW_LOCAL_MEMORY: "chromadb.segment.impl.vector.local_hnsw.LocalHnswSegment",
-    SegmentType.HNSW_LOCAL_PERSISTED: "chromadb.segment.impl.vector.local_persistent_hnsw.PersistentLocalHnswSegment",
+    SegmentType.SQLITE: "sparke.segment.impl.metadata.sqlite.SqliteMetadataSegment",
+    SegmentType.HNSW_LOCAL_MEMORY: "sparke.segment.impl.vector.local_hnsw.LocalHnswSegment",
+    SegmentType.HNSW_LOCAL_PERSISTED: "sparke.segment.impl.vector.local_persistent_hnsw.PersistentLocalHnswSegment",
 }
 
 

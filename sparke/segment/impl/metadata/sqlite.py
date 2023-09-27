@@ -3,7 +3,7 @@ from sparke.segment import MetadataReader
 from sparke.ingest import Consumer
 from sparke.config import System
 from sparke.types import Segment, InclusionExclusionOperator
-from sparke.db.impl.sqlite import SqliteDB
+from sparke.db.sqlite.sqlite import SqliteDB
 from overrides import override
 from sparke.db.base import (
     Cursor,

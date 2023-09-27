@@ -33,6 +33,13 @@ _operation_codes = {
 }
 _operation_codes_inv = {v: k for k, v in _operation_codes.items()}
 
+_operation_codes_str = {
+    "Operation.ADD": 0,
+    "Operation.UPDATE": 1,
+    "Operation.UPSERT": 2,
+    "Operation.DELETE": 3,
+}
+
 # Set in conftest.py to rethrow errors in the "async" path during testing
 # https://doc.pytest.org/en/latest/example/simple.html#detect-if-running-from-within-a-pytest-run
 _called_from_test = False
@@ -146,7 +153,7 @@ class SqlEmbeddingsQueue(SqlDB, Producer, Consumer):
                 metadata,
             ) = self._prepare_vector_encoding_metadata(embedding)
             insert = insert.insert(
-                ParameterValue(_operation_codes[embedding["operation"]]),
+                ParameterValue(_operation_codes_str[str(embedding["operation"])]),
                 ParameterValue(topic_name),
                 ParameterValue(embedding["id"]),
                 ParameterValue(embedding_bytes),
